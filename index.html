@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Just for you 🤍</title>
+<style>
+:root {
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  --bg: #14233f;
+  --bg2: #1d3560;
+  --card: #1f3358;
+  --text: #f5f7fb;
+  --muted: #b8c4dc;
+  --accent: #e63946;
+  --accent2: #f28b93;
+  --ice: #24406f;
+  --line: #34497a;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #14233f; --bg2: #1d3560; --card: #1f3358; --text: #f5f7fb;
+    --muted: #b8c4dc; --accent: #e63946; --accent2: #f28b93; --ice: #24406f; --line: #34497a;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #14233f; --bg2: #1d3560; --card: #1f3358; --text: #f5f7fb;
+  --muted: #b8c4dc; --accent: #e63946; --accent2: #f28b93; --ice: #24406f; --line: #34497a;
+}
+html { scroll-padding-top: env(safe-area-inset-top, 0px); scroll-behavior: smooth; }
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--bg); color: var(--text);
+  font-family: "Nunito", "Segoe UI", system-ui, -apple-system, sans-serif;
+  line-height: 1.6; overflow-x: hidden;
+}
+body::before { content: ""; position: fixed; top: 0; left: 0; right: 0; height: 6px; z-index: 60;
+  background: linear-gradient(90deg, var(--accent) 0 33%, #fff 33% 66%, var(--accent) 66%); }
+section { max-width: 560px; margin: 0 auto; padding: 56px 22px; }
+h1, h2 { font-family: Georgia, "Times New Roman", serif; line-height: 1.2; margin: 0 0 14px; }
+h1 { font-size: 2.3rem; }
+h2 { font-size: 1.6rem; }
+p { margin: 0 0 14px; color: var(--muted); }
+
+/* hero */
+.hero { text-align: center; min-height: 92vh; display: flex; flex-direction: column; justify-content: center; position: relative;
+  background: radial-gradient(circle at 50% 0%, var(--bg2), var(--bg) 70%); max-width: none; }
+.hero-inner { max-width: 520px; margin: 0 auto; }
+.float { position: absolute; font-size: 1.8rem; opacity: .85; animation: bob 4s ease-in-out infinite; }
+.f1 { left: 8%; top: 14%; } .f2 { right: 10%; top: 20%; animation-delay: .8s; }
+.f3 { left: 14%; bottom: 14%; animation-delay: 1.6s; } .f4 { right: 12%; bottom: 18%; animation-delay: 2.2s; }
+@keyframes bob { 0%,100% { transform: translateY(0) rotate(-6deg);} 50% { transform: translateY(-14px) rotate(6deg);} }
+.btn {
+  display: inline-block; margin-top: 10px; padding: 13px 26px; border: 0; border-radius: 999px;
+  background: var(--accent); color: #fff; font-size: 1rem; font-weight: 700; cursor: pointer;
+  box-shadow: 0 6px 18px rgba(230,57,70,.4); text-decoration: none;
+}
+.btn:active { transform: scale(.97); }
+
+/* hoop game */
+.court { position: relative; height: 270px; border-radius: 22px; background: linear-gradient(var(--bg2), var(--card));
+  border: 2px solid var(--line); overflow: hidden; }
+.board { position: absolute; top: 18px; left: 50%; transform: translateX(-50%); width: 110px; height: 70px;
+  border: 4px solid var(--accent); border-radius: 8px; background: rgba(255,255,255,.35); }
+.rim { position: absolute; top: 74px; left: 50%; transform: translateX(-50%); width: 70px; height: 8px;
+  border-radius: 6px; background: var(--accent); z-index: 3; }
+.net { position: absolute; top: 82px; left: 50%; transform: translateX(-50%); width: 56px; height: 36px; z-index: 1;
+  background: repeating-linear-gradient(90deg, rgba(255,255,255,.75) 0 2px, transparent 2px 9px);
+  clip-path: polygon(0 0, 100% 0, 80% 100%, 20% 100%); }
+.ball { position: absolute; bottom: 14px; left: 50%; margin-left: -22px; font-size: 44px; line-height: 1; z-index: 2; cursor: pointer; user-select: none; }
+.ball.make { animation: make 1s ease-in forwards; }
+.ball.miss { animation: miss 1s ease-in forwards; }
+@keyframes make {
+  0% { transform: translate(0,0); }
+  55% { transform: translate(0,-170px) scale(.8); }
+  75% { transform: translate(0,-150px) scale(.8); }
+  100% { transform: translate(0,0) scale(1); }
+}
+@keyframes miss {
+  0% { transform: translate(0,0); }
+  55% { transform: translate(24px,-178px) scale(.8) rotate(90deg); }
+  100% { transform: translate(110px,0) rotate(280deg); }
+}
+.score { text-align: center; margin-top: 12px; font-weight: 700; color: var(--text); min-height: 1.6em; }
+
+/* cards */
+.grid { display: grid; gap: 14px; }
+.card { background: var(--card); border: 1px solid var(--line); border-radius: 20px; padding: 18px 20px; }
+.card .e { font-size: 1.7rem; }
+.card h3 { margin: 4px 0 4px; font-size: 1.1rem; }
+.card p { margin: 0; }
+
+/* verse */
+.verse { background: var(--ice); border-radius: 24px; padding: 28px 24px; text-align: center; }
+.verse blockquote { margin: 0 0 10px; font-family: Georgia, serif; font-size: 1.2rem; font-style: italic; color: var(--text); }
+.verse cite { color: var(--muted); font-size: .95rem; }
+
+/* coupons */
+.coupons { display: grid; gap: 14px; }
+.coupon { position: relative; background: var(--card); border: 2px dashed var(--accent); border-radius: 18px;
+  padding: 18px 20px; cursor: pointer; text-align: left; font: inherit; color: inherit; width: 100%; }
+.coupon .front { font-weight: 800; color: var(--accent); }
+.coupon .back { display: none; color: var(--text); }
+.coupon.open .front { display: none; }
+.coupon.open .back { display: block; }
+.coupon small { display: block; color: var(--muted); margin-top: 4px; font-weight: 400; }
+
+footer { text-align: center; padding: 50px 22px 70px; }
+footer .sign { font-family: Georgia, serif; font-size: 1.2rem; color: var(--text); }
+
+.hearts { position: fixed; inset: 0; pointer-events: none; overflow: hidden; z-index: 50; }
+.heart { position: absolute; bottom: -30px; font-size: 22px; animation: rise 2.4s ease-out forwards; }
+@keyframes rise { to { transform: translateY(-110vh) rotate(20deg); opacity: 0; } }
+.fade { opacity: 0; transform: translateY(18px); transition: opacity .7s ease, transform .7s ease; }
+.fade.in { opacity: 1; transform: none; }
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <span class="float f1">🏀</span><span class="float f2">⛸️</span>
+  <span class="float f3" style="font-family:Georgia,serif;font-weight:800;font-size:3.2rem;color:var(--accent)">7</span><span class="float f4" style="font-family:Georgia,serif;font-weight:800;font-size:1.7rem;color:#fff">4</span>
+  <div class="hero-inner">
+    <h1>Hey <span id="name">you</span> 🤍</h1>
+    <p style="font-size:1.1rem">I noticed you've been carrying a lot lately. So I made you a little corner of the internet where there's nothing to do and nothing to prove.</p>
+    <a class="btn" href="#play">Take a breather</a>
+  </div>
+</section>
+
+<section id="play" class="fade">
+  <h2>First, a quick shot 🏀</h2>
+  <p>Tap the ball. No score that matters, just good vibes.</p>
+  <div class="court" id="court">
+    <div class="board"></div><div class="net"></div><div class="rim"></div>
+    <div class="ball" id="ball">🏀</div>
+  </div>
+  <div class="score" id="score">Ready when you are.</div>
+</section>
+
+<section class="fade">
+  <h2>Things that make you, you</h2>
+  <div class="grid">
+    <div class="card"><div class="e">🏀</div><h3>The competitor</h3><p>Sporty, driven, and fun to watch when you're in your element.</p></div>
+    <div class="card"><div class="e">⛸️</div><h3>Graceful on the ice</h3><p>Not everyone can glide like that. I hope you get a rink day soon.</p></div>
+    <div class="card"><div class="e">👭</div><h3>Sister and niece time</h3><p>The way you show up for your people says a lot about your heart.</p></div>
+    <div class="card"><div class="e">✨</div><h3>Beautiful, simply</h3><p>Those curls, that smile, and a heart that's even prettier. You glow without even trying.</p></div>
+  </div>
+</section>
+
+<section class="fade">
+  <div class="verse">
+    <blockquote>"But they that wait upon the LORD shall renew their strength; they shall mount up with wings as eagles; they shall run, and not be weary; and they shall walk, and not faint."</blockquote>
+    <cite>Isaiah 40:31</cite>
+  </div>
+  <p style="text-align:center;margin-top:18px">Rest isn't quitting. It's part of the game plan.</p>
+</section>
+
+<section class="fade">
+  <h2>Little rest coupons 🎟️</h2>
+  <p>Tap one to open it. No expiry, no pressure.</p>
+  <div class="coupons">
+    <button class="coupon"><span class="front">Tap to open #1</span><span class="back">One <b>"you did enough today"</b> reminder, delivered whenever you need it.</span></button>
+    <button class="coupon"><span class="front">Tap to open #2</span><span class="back">A snack or drink of your choice, whenever your schedule allows. <small>Your pick, your timing.</small></span></button>
+    <button class="coupon"><span class="front">Tap to open #3</span><span class="back">Zero-effort hype session about whatever you're proud of lately.</span></button>
+    <button class="coupon"><span class="front">Tap to open #4</span><span class="back">A free pass to be tired. You don't have to explain it to anyone.</span></button>
+  </div>
+</section>
+
+<footer class="fade">
+  <p class="sign">Rooting for you, always.</p>
+  <p>No reply needed. I just wanted to make you smile. 🤍</p>
+  <button class="btn" id="love">Send a little love</button>
+  <p style="margin-top:18px">— <span id="from">someone who's on your team</span></p>
+</footer>
+
+<div class="hearts" id="hearts"></div>
+
+<script>
+// ✏️ EDIT THESE:
+var HER_NAME = "Curls";
+var FROM_NAME = "Saucy";
+
+if (HER_NAME) document.getElementById("name").textContent = HER_NAME;
+if (FROM_NAME) document.getElementById("from").textContent = FROM_NAME;
+
+// scroll fade-in
+var io = new IntersectionObserver(function (es) {
+  es.forEach(function (e) { if (e.isIntersecting) e.target.classList.add("in"); });
+}, { threshold: 0.15 });
+document.querySelectorAll(".fade").forEach(function (el) { io.observe(el); });
+
+// hoop game
+var ball = document.getElementById("ball"), score = document.getElementById("score");
+var makes = 0, busy = false;
+var cheers = ["Swish! 🔥", "Nothing but net!", "Bucket! 🙌", "MVP behavior", "Too easy for you"];
+var misses = ["So close! Go again.", "Rim out. Shake it off.", "Even pros miss. Try again!"];
+ball.addEventListener("click", function () {
+  if (busy) return; busy = true;
+  var made = Math.random() < 0.7;
+  ball.classList.add(made ? "make" : "miss");
+  setTimeout(function () {
+    if (made) { makes++; score.textContent = cheers[Math.floor(Math.random() * cheers.length)] + "  (" + makes + " made)"; }
+    else { score.textContent = misses[Math.floor(Math.random() * misses.length)]; }
+  }, 700);
+});
+ball.addEventListener("animationend", function () {
+  ball.classList.remove("make", "miss"); busy = false;
+});
+
+// coupons
+document.querySelectorAll(".coupon").forEach(function (c) {
+  c.addEventListener("click", function () { c.classList.toggle("open"); });
+});
+
+// hearts
+function hearts() {
+  var box = document.getElementById("hearts"), set = ["❤️", "🤍", "🏀", "⛸️", "7️⃣"];
+  for (var i = 0; i < 14; i++) {
+    var h = document.createElement("span");
+    h.className = "heart";
+    h.textContent = set[Math.floor(Math.random() * set.length)];
+    h.style.left = Math.random() * 100 + "%";
+    h.style.animationDelay = (Math.random() * 0.8) + "s";
+    box.appendChild(h);
+    (function (x) { setTimeout(function () { x.remove(); }, 3400); })(h);
+  }
+}
+document.getElementById("love").addEventListener("click", hearts);
+</script>
+</body>
+</html>
